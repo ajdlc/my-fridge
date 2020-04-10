@@ -4,8 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Fridge</title>
+
+    <!-- Vuetify Needed CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="src/css/vuetify.min.css" rel="stylesheet">
+
+    <!-- API KEYS REQUIRED FOR APPLICATION FUNCTION -->
+    <script src="src/js/keys.js"></script>
 </head>
 <body>
+    <div id="app">
+        <v-app>
+            <!-- Nav Bar -->
+            <v-app-bar app>
+
+            </v-app-bar>
+
+            <!-- Nav Drawer -->
+            <v-navigation-drawer app temporary>
+
+            </v-navigation-drawer>
+
+            <!-- Content -->
+            <v-content>
+                <h1>{{ title }}</h1>
+
+                <!-- Test Form -->
+                <h2>Recipe Search</h2>
+                <input type="text" v-model="recipeSearch" name="recipe" id="" placeholder="Ingredient">
+                <button type="submit" @click="searchRecipes">Search</button>
+
+                <!-- Test Display -->
+                <div id="recipes">
+                    <h4>Recipes</h4>
+                    <ul>
+                        <li v-for="r in recipes" :key="r.url">
+                            {{ r.name }}
+                            <ul>
+                                <li>
+                                    Ingredients
+                                    <ul>
+                                        <li v-for="(ingredient, j) in r.ingredients" :key="j">{{ ingredient }}</li>
+                                    </ul>
+                                </li>
+                                <li v-if="r.time > 0">Total Time: {{ r.time }}</li>
+                                <li>
+                                    <a v-bind:href="r.url">{{ r.url }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Unsplash images -->
+                <div id="unsplash-images">
+                    <div v-for="image in images" :key="image.url">
+                        <!-- <h3>{{ image.title }}</h3> -->
+                        <img :src="image.url" alt="image.alt">
+                    </div>
+                </div>
+            </v-content>
+
+            <!-- Footer -->
+            <v-footer app>
+
+            </v-footer>
+        </v-app>
+    </div>
     
+    <!-- Vue.js -->
+    <script src="src/js/vue.js"></script>
+    <!-- Vuetify -->
+    <script src="src/js/vuetify.js"></script>
+
+    <!-- Custom Script -->
+    <script src="src/js/scripts.js"></script>
 </body>
 </html>
