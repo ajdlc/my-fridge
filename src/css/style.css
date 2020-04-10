@@ -1,0 +1,46 @@
+/* Text Colors */
+.color-primary{
+    color: #05a8aa;
+}
+
+.color-secondary{
+    color: #B5FFE9;
+}
+
+.color-accent{
+    color: #D0CFEC;
+}
+
+.color-alt{
+    color: #444545;
+}
+
+.color-alt-accent{
+    color: #F7F7F2;
+}
+
+/* Background Colors */
+.color-primary-bg {
+    background-color: #05a8aa;
+}
+
+.color-secondary-bg {
+    background-color: #B5FFE9;
+}
+
+.color-accent-bg {
+    background-color: #D0CFEC;
+}
+
+.color-alt-bg {
+    background-color: #444545;
+}
+
+.color-alt-accent-bg {
+    background-color: #F7F7F2;
+}
+
+/* Non-Color */
+.shadowText {
+    text-shadow: 2px 5px 10px black;
+}

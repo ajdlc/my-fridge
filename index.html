@@ -10,6 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="src/css/vuetify.min.css" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="src/css/style.css">
+
     <!-- API KEYS REQUIRED FOR APPLICATION FUNCTION -->
     <script src="src/js/keys.js"></script>
 </head>
@@ -17,53 +20,79 @@
     <div id="app">
         <v-app>
             <!-- Nav Bar -->
-            <v-app-bar app>
+            <v-app-bar app dark color="#05a8aa">
+                <v-toolbar-title>{{ title }}</v-toolbar-title>
 
+                <v-spacer></v-spacer>
+
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon href="https://github.com/ajdlc/my-fridge" v-on="on" target="_blank" class="mr-5">
+                        <v-img src="src/icons/gh.png" contain height="30px" width="30px"></v-img>
+                    </v-btn>
+                  </template>
+                  <span>Github</span>
+                </v-tooltip>
+                
             </v-app-bar>
 
             <!-- Nav Drawer -->
             <v-navigation-drawer app temporary>
+                   
 
             </v-navigation-drawer>
 
             <!-- Content -->
             <v-content>
-                <h1>{{ title }}</h1>
+                <v-container fluid class="pt-0">
+                    <v-row class="text-center white--text color-alt-bg display-3 pa-5">
+                        <v-col cols=12 class="shadowText">
+                            Recipe List
+                        </v-col>
+                    </v-row>
 
-                <!-- Test Form -->
-                <h2>Recipe Search</h2>
-                <input type="text" v-model="recipeSearch" name="recipe" id="" placeholder="Ingredient">
-                <button type="submit" @click="searchRecipes">Search</button>
+                    <v-row >
+                        <!-- Search -->
+                        <v-col cols=12 md=3>
+                            <v-form autocomplete="off">
+                                <v-text-field v-model="recipeSearch" outlined rounded placeholder="Search for Ingredient" label="Search"></v-text-field>
+                                <v-btn type="submit" color="primary" rounded block @click.prevent="searchRecipes">
+                                    Submit
+                                </v-btn>
+                            </v-form>
+                        </v-col>
+                        <!-- Results -->
+                        <v-col cols=12 md=9>
+                            <v-card v-for="(r, i) in recipes" :key="i" elevation=8 class="mb-5">
+                                <!-- Image -->
+                                <v-img v-if="images.length > 0" :src="images[i].url" :alt="images[i].alt" max-height="500px"></v-img>
 
-                <!-- Test Display -->
-                <div id="recipes">
-                    <h4>Recipes</h4>
-                    <ul>
-                        <li v-for="r in recipes" :key="r.url">
-                            {{ r.name }}
-                            <ul>
-                                <li>
-                                    Ingredients
+                                <!-- Title -->
+                                <v-card-title>{{ r.name }}</v-card-title>
+
+                                <!-- Subtitle - Total Time -->
+                                <v-card-subtitle v-if="r.time > 0">
+                                    Total time: {{ r.time }} min
+                                </v-card-subtitle>
+
+                                <!-- Text - Ingredients -->
+                                <v-card-text>
+                                    Ingredients  
                                     <ul>
                                         <li v-for="(ingredient, j) in r.ingredients" :key="j">{{ ingredient }}</li>
                                     </ul>
-                                </li>
-                                <li v-if="r.time > 0">Total Time: {{ r.time }}</li>
-                                <li>
-                                    <a v-bind:href="r.url">{{ r.url }}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Unsplash images -->
-                <div id="unsplash-images">
-                    <div v-for="image in images" :key="image.url">
-                        <!-- <h3>{{ image.title }}</h3> -->
-                        <img :src="image.url" alt="image.alt">
-                    </div>
-                </div>
+                                </v-card-text>
+                                
+                                <!-- Action - Link -->
+                                <v-card-actions>
+                                    <v-btn :href="r.url" color="#B5FFE9" class="color-accent" target="_blank">
+                                        Visit Recipe
+                                    </v-btn>    
+                                </v-card-actions>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
             </v-content>
 
             <!-- Footer -->

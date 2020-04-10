@@ -71,7 +71,7 @@ let vm = new Vue({
                         let temp = {
                             title: item.description,
                             alt: item.alt_description,
-                            url: item.urls.small
+                            url: item.urls.full
                         }
 
                         // Store in Vue Data Object
